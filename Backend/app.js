@@ -3,7 +3,6 @@ const cors = require('cors');
 const multer = require('multer');
 const csv = require('csv-parser');
 const fs = require('fs');
-const { parse } = require('date-fns');
 
 const app = express();
 app.use(cors({}));
@@ -26,7 +25,7 @@ const processCSV = (filePath) => {
                     Sales: Number(row.Sales) || 0,
                     Profit: Number(row.Profit) || 0
                 };
-                const date = new Date("2024-12-19").getMonth()
+                const date = new Date(row.Date).getMonth()
                 const quarter = `Q${Math.floor((date + 3) / 3)}`;
                 results.push(row);
                 quarterlyData[quarter].push(sanitizedRow);
